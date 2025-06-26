@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio | La Barbería{% endblock %}
+
+{% block content %}
+<!-- Header fijo -->
+<header class="fixed top-0 left-0 w-full z-50 glass px-6 py-4 flex justify-between items-center shadow">
+  <h1 class="text-2xl font-bold text-white">La Barbería</h1>
+  <nav>
+    <ul class="flex space-x-6 text-sm font-medium {% if user.is_authenticated %} justify-center w-full {% endif %}">
+      <li><a href="#servicios" class="hover:text-yellow-500">Servicios</a></li>
+      <li><a href="#galeria" class="hover:text-yellow-500">Galería</a></li>
+      <li><a href="#reserva" class="hover:text-yellow-500">Reserva</a></li>
+      <li><a href="#contacto" class="hover:text-yellow-500">Contacto</a></li>
+
+      {% if user.is_authenticated %}
+        <li class="ml-auto flex items-center space-x-4">
+          <span class="text-yellow-400 font-semibold">Hola, {{ user.first_name|default:user.username }} bienvenido</span>
+          <form method="post" action="{% url 'CerrarSesion' %}">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition">Cerrar sesión</button>
+          </form>
+        </li>
+      {% else %}
+        <a href="{% url 'InicioSesion' %}" class="ml-4 bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-1.5 rounded font-semibold text-sm transition">Iniciar sesión</a>
+      {% endif %}
+    </ul>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="h-screen bg-cover bg-center flex items-center justify-center relative" style="background-image: url('https://images.unsplash.com/photo-1600185365081-0496b4b6c011?auto=format&fit=crop&w=1920&q=80');">
+  <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+  <div class="relative glass p-10 rounded-xl text-center max-w-xl z-10">
+    <h2 class="text-4xl font-bold mb-4">Cortes de precisión y estilo único</h2>
+    <p class="mb-6 text-gray-300">Transformamos tu look con arte y actitud</p>
+    <a href="#reserva" class="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-2 rounded font-semibold">Reservar Turno</a>
+  </div>
+</section>
+
+<!-- Servicios -->
+<section id="servicios" class="py-20 px-6 bg-[#111]">
+  <div class="text-center mb-12">
+    <h3 class="text-3xl font-bold">Nuestros Servicios</h3>
+    <p class="text-gray-400">Lo mejor para tu estilo</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div class="glass p-6 rounded-xl text-center shadow hover:scale-105 transition">
+      <h4 class="text-xl font-semibold text-yellow-400">Corte Clásico</h4>
+      <p class="text-gray-300 mt-2">Estilo limpio y tradicional con terminación profesional.</p>
+      <p class="text-yellow-500 mt-4 font-bold">$2500</p>
+    </div>
+    <div class="glass p-6 rounded-xl text-center shadow hover:scale-105 transition">
+      <h4 class="text-xl font-semibold text-yellow-400">Barba & Perfilado</h4>
+      <p class="text-gray-300 mt-2">Afeitado y definición con navaja y vapor.</p>
+      <p class="text-yellow-500 mt-4 font-bold">$1800</p>
+    </div>
+    <div class="glass p-6 rounded-xl text-center shadow hover:scale-105 transition">
+      <h4 class="text-xl font-semibold text-yellow-400">Combo Full</h4>
+      <p class="text-gray-300 mt-2">Corte + barba + tratamiento capilar.</p>
+      <p class="text-yellow-500 mt-4 font-bold">$4000</p>
+    </div>
+  </div>
+</section>
+
+<!-- Galería -->
+<section id="galeria" class="py-20 bg-black px-6">
+  <div class="text-center mb-12">
+    <h3 class="text-3xl font-bold">Galería de Estilos</h3>
+    <p class="text-gray-400">Conocé nuestro trabajo</p>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+    <img src="https://images.unsplash.com/photo-1598294381372-208f7f09c0d1?auto=format&fit=crop&w=600&q=80" class="rounded-xl hover:scale-105 transition duration-300" />
+    <img src="https://images.unsplash.com/photo-1612969308442-9028ce1e3a35?auto=format&fit=crop&w=600&q=80" class="rounded-xl hover:scale-105 transition duration-300" />
+    <img src="https://images.unsplash.com/photo-1595433562696-c241a75ec6cb?auto=format&fit=crop&w=600&q=80" class="rounded-xl hover:scale-105 transition duration-300" />
+  </div>
+</section>
+
+<!-- Reserva CTA -->
+<section id="reserva" class="py-20 bg-gradient-to-br from-black via-gray-900 to-black text-center">
+  <div class="glass max-w-xl mx-auto p-10 rounded-xl">
+    <h3 class="text-2xl font-bold mb-4">¿Listo para cambiar tu estilo?</h3>
+    <p class="text-gray-300 mb-6">Reservá tu turno online en segundos</p>
+    <a href="#" class="bg-yellow-500 text-black px-6 py-2 rounded hover:bg-yellow-600 font-semibold">Reservar Ahora</a>
+  </div>
+</section>
+{% endblock %}
+
+{% block footer %}
+<!-- Footer inspirado en Estética en Línea -->
+<footer class="bg-[#111] text-center py-10 text-gray-400 text-sm">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+      <p>&copy; 2025 La Barbería. Todos los derechos reservados.</p>
+      <div class="flex space-x-4">
+        <a href="#" class="hover:text-yellow-500 transition">Política de Privacidad</a>
+        <a href="#" class="hover:text-yellow-500 transition">Términos y Condiciones</a>
+        <a href="#contacto" class="hover:text-yellow-500 transition">Contacto</a>
+      </div>
+    </div>
+  </div>
+</footer>
+{% endblock %}
