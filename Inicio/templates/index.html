@@ -3,32 +3,7 @@
 {% block title %}Inicio | La Barbería{% endblock %}
 
 {% block content %}
-<!-- Header fijo -->
-<header class="fixed top-0 left-0 w-full z-50 glass px-6 py-4 flex justify-between items-center shadow">
-  <h1 class="text-2xl font-bold text-white">Fede BarberShop</h1>
-  <nav>
-    <ul class="flex space-x-6 text-sm font-medium {% if user.is_authenticated %} justify-center w-full {% endif %}">
-      <li><a href="#servicios" class="hover:text-yellow-500">Servicios</a></li>
-      <li><a href="#galeria" class="hover:text-yellow-500">Galería</a></li>
-      <li><a href="#nosotros" class="hover:text-yellow-500">Nosotros</a></li>
-      <li><a href="#reserva" class="hover:text-yellow-500">Reserva</a></li>
-      <li><a href="{% url 'dash' %}" class="hover:text-yellow-500">Dash</a></li>
-      <li><a href="#contacto" class="hover:text-yellow-500">Contacto</a></li>
 
-      {% if user.is_authenticated %}
-        <li class="ml-auto flex items-center space-x-4">
-          <span class="text-yellow-400 font-semibold">Hola, {{ user.first_name|default:user.username }} bienvenido</span>
-          <form method="post" action="{% url 'CerrarSesion' %}">
-            {% csrf_token %}
-            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition">Cerrar sesión</button>
-          </form>
-        </li>
-      {% else %}
-        <a href="{% url 'InicioSesion' %}" class="ml-4 bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-1.5 rounded font-semibold text-sm transition">Iniciar sesión</a>
-      {% endif %}
-    </ul>
-  </nav>
-</header>
 
 <!-- Hero con carrusel Bootstrap + glass + full screen -->
 <section class="relative h-screen overflow-hidden">
@@ -77,7 +52,7 @@
     <div class="glass text-center p-5 rounded-4 z-10">
       <h2 class="text-white text-4xl font-bold mb-3">Cortes de precisión y estilo único</h2>
       <p class="text-gray-300 mb-4">Transformamos tu look con arte y actitud</p>
-      <a href="#reserva" class="btn btn-warning fw-semibold px-4 py-2">Reservar Turno</a>
+      <!-- <a href="#reserva" class="btn btn-warning fw-semibold px-4 py-2">Reservar Turno</a> -->
     </div>
   </div>
 </section>
@@ -91,7 +66,7 @@
   </div>
 </section> -->
 
-<!-- Servicios -->
+<!-- Servicios (Todavia le falta reemplazar con los servicios cargados)-->
 <section id="servicios" class="py-20 px-6 bg-[#111]">
   <div class="text-center mb-12">
     <h3 class="text-3xl font-bold">Nuestros Servicios</h3>

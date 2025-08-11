@@ -15,7 +15,6 @@
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <div class="logo-img">
-                <!-- <img src="/static/imgs/logofede.png" alt=""> -->
                 <img src="{% static 'imgs/logofede.png' %}" alt="Logo" style="width: 35px; height: 35px;">
             </div>
             <div class="logo-text">
@@ -27,9 +26,9 @@
         <ul class="sidebar-menu">
             <li class="menu-item">
                 <a href="#" class="menu-link active" data-name="Inicio" data-icon="fa-house">
-                <i class="fas fa-house"></i>
-                <span class="menu-text">Inicio</span>
-            </a>
+                    <i class="fas fa-house"></i>
+                    <span class="menu-text">Inicio</span>
+                </a>
             </li>
 
             <li class="menu-item">
@@ -91,8 +90,8 @@
                     <i class="fas fa-chevron-down menu-arrow"></i>
                 </button>
                 <ul class="submenu">
-                    <li><a href="#" class="submenu-link">Productos</a></li>
-                    <li><a href="#" class="submenu-link">Servicios</a></li>
+                    <li><a href="#" onclick="cargarVista('/catalogo/productos/', 'Productos', 'fa-box')" class="submenu-link">Productos</a></li>
+                    <li><a href="#" onclick="cargarVista('/catalogo/servicios/', 'Servicios', 'fa-scissors')" class="submenu-link">Servicios</a></li>
                 </ul>
             </li>
             
@@ -133,8 +132,10 @@
                 </button>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                        <li class="breadcrumb-item active">Inicio</li>
+                        <li class="breadcrumb-item">
+                            <a href="#"><i id="breadcrumb-icon" class="fas fa-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" id="breadcrumb-text">Inicio</li>
                     </ol>
                 </nav>
             </div>
@@ -146,13 +147,16 @@
             </div>
         </div>
 
-        <div class="content-area">
+        <div class="content-area" id="content-area">
             {% block content %}
             <!-- Contenido AJAX -->
             {% endblock %}
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}
+    <!-- Aquí cargan scripts específicos de cada vista -->
+    {% endblock %}
     <script>
         // Toggle Sidebar
         function toggleSidebar() {
@@ -261,8 +265,13 @@
     </script>
     <script>
         function updateBreadcrumb(name, iconClass) {
-            document.getElementById('breadcrumb-icon').className = `fas ${iconClass}`;
-            document.getElementById('breadcrumb-text').textContent = name;
+            const iconEl = document.getElementById('breadcrumb-icon');
+            const textEl = document.getElementById('breadcrumb-text');
+
+            if (iconEl && textEl) {
+                iconEl.className = `fas ${iconClass}`;
+                textEl.textContent = name;
+            }
         }
 
         document.querySelectorAll('.menu-link:not([onclick])').forEach(link => {
@@ -276,6 +285,25 @@
                 updateBreadcrumb(name, icon);
             });
         });
+    </script>
+    <script>
+        // function cargarVista(url) {
+        //     fetch(url)
+        //         .then(response => response.text())
+        //         .then(html => {
+        //         document.getElementById("content-area").innerHTML = html;
+        //         })
+        //         .catch(err => console.error("Error al cargar la vista:", err));
+        // }
+        function cargarVista(url, nombre = "", icono = "fa-folder") {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("content-area").innerHTML = html;
+                    updateBreadcrumb(nombre, icono);
+                })
+                .catch(err => console.error("Error al cargar la vista:", err));
+        }
     </script>
 </body>
 </html>

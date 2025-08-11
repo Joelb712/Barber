@@ -1,0 +1,31 @@
+{% load static %}
+<div class="container py-4" style="background-color: #1c1c1c; border-radius: 10px;">
+  <h4 class="text-white mb-4">Cargar Nuevo Servicio</h4>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label text-white">Nombre del Servicio</label>
+      <input type="text" name="nombre" class="form-control bg-dark text-white" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label text-white">Descripción</label>
+      <textarea name="descripcion" class="form-control bg-dark text-white" rows="3" required></textarea>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label text-white">Duración Estimada</label>
+        <input type="text" name="duracion" class="form-control bg-dark text-white" placeholder="Ej: 30 min" required>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label text-white">Precio</label>
+        <input type="number" name="precio" class="form-control bg-dark text-white" required>
+      </div>
+    </div>
+
+    <div class="text-end">
+      <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar Servicio</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,44 @@
+{% extends "dash.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid py-4 bg-dark text-white">
+    <h4 class="mb-3"><i class="fas fa-plus"></i> Nuevo Producto</h4>
+
+    <form method="POST" action="" class="bg-secondary p-4 rounded shadow-sm">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="id_nombre" class="form-label">Nombre</label>
+            <input type="text" name="nombre" id="id_nombre" class="form-control bg-dark text-white border-0" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_descripcion" class="form-label">Descripción</label>
+            <textarea name="descripcion" id="id_descripcion" rows="3" class="form-control bg-dark text-white border-0"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_precio" class="form-label">Precio</label>
+            <input type="number" name="precio" id="id_precio" step="0.01" class="form-control bg-dark text-white border-0" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_stock_actual" class="form-label">Stock</label>
+            <input type="number" name="stock_actual" id="id_stock_actual" min="0" class="form-control bg-dark text-white border-0" required>
+        </div>
+
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" name="activo" id="id_activo" checked>
+            <label class="form-check-label" for="id_activo">Producto Activo</label>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-save"></i> Guardar Producto
+        </button>
+        <a href="{% url 'catalogo_productos' %}" class="btn btn-outline-light ms-2">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </form>
+</div>
+{% endblock %}

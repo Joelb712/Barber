@@ -1,0 +1,145 @@
+{% load static %}
+<div class="container-fluid bg-dark text-white p-4 rounded">
+  <div class="mb-3">
+    <h4 class="text-white">Servicios Ofrecidos</h4>
+    <a href="{% url 'forms' %}" class="btn btn-primary">
+      <i class="fas fa-plus"></i> Nuevo Servicio
+    </a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-dark table-hover align-middle border border-white"">
+      <thead class="table-light text-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Duración</th>
+          <th>Precio</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Corte Clásico</td>
+          <td>Estilo tradicional con máquina y tijera</td>
+          <td>30 min</td>
+          <td>$2.500</td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-outline-light"><i class="fas fa-pen"></i> Modificar</button>
+              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Corte Fade</td>
+          <td>Degradado progresivo con terminación al ras</td>
+          <td>40 min</td>
+          <td>$3.000</td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-outline-light"><i class="fas fa-pen"></i> Modificar</button>
+              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Barba Clásica</td>
+          <td>Recorte y definición con máquina</td>
+          <td>20 min</td>
+          <td>$1.800</td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-outline-light"><i class="fas fa-pen"></i> Modificar</button>
+              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Afeitado Tradicional</td>
+          <td>Con toalla caliente y navaja</td>
+          <td>25 min</td>
+          <td>$2.200</td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-outline-light"><i class="fas fa-pen"></i> Modificar</button>
+              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Perfilado de Cejas</td>
+          <td>Definición con navaja y pinza</td>
+          <td>15 min</td>
+          <td>$1.000</td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-outline-light"><i class="fas fa-pen"></i> Modificar</button>
+              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Limpieza Facial</td>
+          <td>Higiene profunda y exfoliación</td>
+          <td>45 min</td>
+          <td>$4.000</td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-outline-light"><i class="fas fa-pen"></i> Modificar</button>
+              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Coloración Capilar</td>
+          <td>Tinte completo con asesoramiento de tono</td>
+          <td>60 min</td>
+          <td>$5.800</td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-outline-light"><i class="fas fa-pen"></i> Modificar</button>
+              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Alisado</td>
+          <td>Tratamiento de alisado progresivo</td>
+          <td>90 min</td>
+          <td>$8.000</td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-outline-light"><i class="fas fa-pen"></i> Modificar</button>
+              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Peinado Casual</td>
+          <td>Peinado con secador, brushing o gel</td>
+          <td>25 min</td>
+          <td>$2.000</td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-outline-light"><i class="fas fa-pen"></i> Modificar</button>
+              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Tratamiento Capilar</td>
+          <td>Reparación con ampollas nutritivas</td>
+          <td>40 min</td>
+          <td>$3.500</td>
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-2">
+              <button class="btn btn-sm btn-outline-light"><i class="fas fa-pen"></i> Modificar</button>
+              <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
