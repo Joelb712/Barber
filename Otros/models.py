@@ -88,6 +88,7 @@ class Producto(models.Model):
     descripcion = models.TextField(blank=True, null=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     stock_actual = models.PositiveIntegerField(default=0)
+    imagen = models.ImageField(upload_to='productos/', blank=True, null=True)
     activo = models.BooleanField(default=True)
 
     def __str__(self):

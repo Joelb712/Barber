@@ -1,0 +1,9 @@
+<div class="container py-4">
+  <h4>Confirmar eliminación</h4>
+  <p>¿Estás seguro que quieres eliminar este {{ tipo }}: <strong>{{ objeto.nombre }}</strong>?</p>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'lista_productos' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>

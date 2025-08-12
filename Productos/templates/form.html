@@ -1,0 +1,9 @@
+<div class="container py-4">
+  <h3>{{ titulo }}</h3>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{% url 'lista_productos' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
