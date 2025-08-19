@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Dashboard{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
@@ -90,8 +91,8 @@
                     <i class="fas fa-chevron-down menu-arrow"></i>
                 </button>
                 <ul class="submenu">
-                    <li><a href="#" onclick="cargarVista('productos/', 'Productos', 'fa-box')" class="submenu-link">Productos</a></li>
-                    <li><a href="#" onclick="cargarVista('/catalogo/servicios/', 'Servicios', 'fa-scissors')" class="submenu-link">Servicios</a></li>
+                    <li><a href="{% url 'lista_productos' %}" data-nombre="Productos" data-icono="fa-box" class="submenu-link">Productos</a></li>
+                    <li><a href="{% url 'catalogo_servicios' %}" data-nombre="Servicios" data-icono="fa-scissors" class="submenu-link">Servicios</a></li>
                 </ul>
             </li>
             
@@ -154,6 +155,9 @@
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.4/bootbox.all.min.js"></script>
+    
     {% block extra_js %}
     <!-- Aquí cargan scripts específicos de cada vista -->
     {% endblock %}
@@ -287,23 +291,56 @@
         });
     </script>
     <script>
-        // function cargarVista(url) {
+        // function cargarVista(url, nombre = "", icono = "fa-folder") {
         //     fetch(url)
         //         .then(response => response.text())
         //         .then(html => {
-        //         document.getElementById("content-area").innerHTML = html;
+        //             document.getElementById("content-area").innerHTML = html;
+        //             updateBreadcrumb(nombre, icono);
         //         })
         //         .catch(err => console.error("Error al cargar la vista:", err));
         // }
-        function cargarVista(url, nombre = "", icono = "fa-folder") {
-            fetch(url)
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById("content-area").innerHTML = html;
-                    updateBreadcrumb(nombre, icono);
-                })
-                .catch(err => console.error("Error al cargar la vista:", err));
-        }
+        function cargarContenido(url, nombre = "", icono = "fa-folder") {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                xhrFields: { withCredentials: true },
+                success: function(respuesta, status, jqXHR) {
+                // Si devolvió página completa, redirigimos
+                if (typeof respuesta === 'string' && (respuesta.includes('<html') || respuesta.includes('<head'))) {
+                    window.location.href = url;
+                    return;
+                }
+
+                // Si devolvió login
+                if (respuesta.includes('name="username"') && respuesta.includes('name="password"')) {
+                    window.location.href = "{% url 'InicioSesion' %}";
+                    return;
+                }
+
+                // Caso normal: inyectar contenido
+                $('#content-area').html(respuesta);
+
+                // 👇 actualizamos breadcrumb con lo que pasamos
+                updateBreadcrumb(nombre, icono);
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+            }
+
+           $(document).ready(function() {
+            $('.menu-link[data-name], .submenu-link[data-nombre]').on('click', function(e) {
+                e.preventDefault();
+                const url = $(this).attr('href');
+                const nombre = $(this).data('nombre') || $(this).data('name') || "Inicio";
+                const icono = $(this).data('icono') || $(this).data('icon') || "fa-house";
+
+                cargarContenido(url, nombre, icono);
+            });
+            });
     </script>
 </body>
 </html>

@@ -1,9 +1,20 @@
-<div class="container py-4">
-  <h3>{{ titulo }}</h3>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a href="{% url 'lista_productos' %}" class="btn btn-secondary">Cancelar</a>
-  </form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     {% load static %}
+    <title>Agregar Producto</title>
+</head>
+<body>
+    <form action="" method="post">
+     {% csrf_token %}
+     {{ form.as_p }}
+
+     <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+    <script src="{% static 'jQuery-3.7.0/jquery-3.7.0.js' %}"></script> 
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.4/bootbox.all.min.js"></script>
+</body>
+</html>
