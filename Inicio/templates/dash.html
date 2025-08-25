@@ -9,6 +9,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
 <body>
@@ -45,17 +47,11 @@
             </li>
 
             <li class="menu-item">
-                <a href="#" class="menu-link">
-                    <i class="fas fa-user"></i>
-                    <span class="menu-text">Clientes</span>
-                </a>
+                <a href="{% url 'lista_clientes' %}"  data-name="Clientes" data-icono="fa-user" class="menu-link"><i class="fas fa-user"></i>Clientes</a>
             </li>
 
             <li class="menu-item">
-                <a href="#" class="menu-link">
-                    <i class="fas fa-dollar-sign"></i>
-                    <span class="menu-text">Ventas</span>
-                </a>
+                <a href="{% url 'lista_ventas' %}" data-name="Ventas" data-icon="fa-dollar-sign" class="menu-link"><i class="fas fa-dollar-sign"></i>Ventas</a>
             </li>
 
             <li class="menu-item">
@@ -154,13 +150,36 @@
             {% endblock %}
         </div>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.4/bootbox.all.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     {% block extra_js %}
     <!-- Aquí cargan scripts específicos de cada vista -->
     {% endblock %}
+    <script>
+        $(document).ready(function() {
+            // Inicializa TODAS las tablas con DataTables
+            $('table').DataTable({
+                responsive: true,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                dom: 'Bfrtip', // Activa los botones
+                buttons: ['copy', 'excel', 'pdf', 'print']
+            });
+        });
+       
+    </script>
     <script>
         // Toggle Sidebar
         function toggleSidebar() {
@@ -291,15 +310,6 @@
         });
     </script>
     <script>
-        // function cargarVista(url, nombre = "", icono = "fa-folder") {
-        //     fetch(url)
-        //         .then(response => response.text())
-        //         .then(html => {
-        //             document.getElementById("content-area").innerHTML = html;
-        //             updateBreadcrumb(nombre, icono);
-        //         })
-        //         .catch(err => console.error("Error al cargar la vista:", err));
-        // }
         function cargarContenido(url, nombre = "", icono = "fa-folder") {
             $.ajax({
                 url: url,

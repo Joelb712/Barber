@@ -1,0 +1,89 @@
+{% load static %}
+<style>
+  .card-img-top {
+    height: 150px;
+    object-fit: cover;
+  }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="text text-center">Gestión de Clientes</h2>
+    </div>
+    <div class="card-body" class="p-6">
+        <div class="bg-white/30 backdrop-blur-md shadow-lg rounded-2xl p-4 mb-6">
+            <h2 class="text-2xl font-bold flex items-center gap-2">
+                <i class="fas fa-users"></i> Lista de Clientes
+            </h2>
+            <p>Esta lista coniene todos los clientes de la Barberia</p>
+            <div class="flex justify-between mt-4">        
+                <button id="btnAgregarCliente" class="btn btn-primary me-2">Agregar</button>
+            </div>
+        </div>
+        <div class="bg-white/30 backdrop-blur-md shadow-lg rounded-2xl p-4">
+            <table id="listacli" class="table table-hover" class="display">
+            <thead>
+                <tr>
+                <th>Dni</th><th>Nombre</th><th>Apellido</th><th>Telefono</th><th>Email</th><th>Fecha Registro</th><th>Notas</th><th>Estado</th><th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in clientes %}
+                <tr>
+                    <td >{{e.dni}}</td>
+                    <td >{{e.nombre}}</td>
+                    <td >{{e.apellido}}</td>
+                    <td >{{e.telefono}}</td>
+                    <td >{{e.email}}</td>
+                    <td >{{e.fecha_registro}}</td>
+                    <td >{{e.notas}}</td>
+                    <td >{{e.activo}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+                {% endfor %}
+                <!-- Filas dinámicas -->
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#listacli').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'  // Traducción al español
+            }   
+        });
+    });
+        
+    $(document).ready(function() {
+    $('#btnAgregarCliente').off('click').on('click', function() {
+        const url = "{% url 'formcli' %}";
+        bootbox.dialog({
+        title: 'Formulario',
+        message: "<iframe id='formIframe' src='" + url + "' scrolling='yes' frameborder='0' width='100%' height='600'></iframe>",
+        size: 'large',
+        buttons: {
+            cancel: {
+            label: 'Cerrar',
+            className: 'btn-secondary',
+            callback: function () {
+                cargarContenido("{% url 'lista_clientes' %}");
+            }
+            }
+        }
+        });
+
+        window.addEventListener('message', function(event) {
+        if (event.data && event.data.action === 'closeBootbox') {
+            bootbox.hideAll();
+            cargarContenido("{% url 'lista_clientes' %}");
+        }
+        }, { once: true });
+    });
+    });
+</script>
