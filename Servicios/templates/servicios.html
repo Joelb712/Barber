@@ -1,0 +1,86 @@
+{% load static %}
+<style>
+  .card-img-top {
+    height: 150px;
+    object-fit: cover;
+  }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="text text-center">Servicios</h2>
+    </div>
+    <div class="card-body" class="p-6">
+        <div class="bg-white/30 backdrop-blur-md shadow-lg rounded-2xl p-4 mb-6">
+            <h2 class="text-2xl font-bold flex items-center gap-2">
+                <i class="fas fa-scissors "></i> Lista de Servicios
+            </h2>
+            <p>Acá puedes ver todos los servicios que están registrados, disponibles o no</p>
+            <div class="flex justify-between mt-4">        
+                <button id="btnAgregarServicio" class="btn btn-primary me-2">Nuevo Servicio</button>
+            </div>
+        </div>
+        <div class="bg-white/30 backdrop-blur-md shadow-lg rounded-2xl p-4">
+            <table id="listaserv" class="table table-hover" class="display">
+            <thead>
+                <tr>
+                <th>Nombre</th><th>Descripcion</th><th>Precio</th><th>Duracion (min)</th><th>Estado</th><th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for servicio in servicios %}
+                <tr>
+                    <td >{{servicio.nombre}}</td>
+                    <td >{{servicio.descripcion}}</td>
+                    <td >{{servicio.precio}}</td>
+                    <td >{{servicio.duracion_minutos}}</td>
+                    <td >{{servicio.activo}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+                {% endfor %}
+                <!-- Filas dinámicas -->
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#listaserv').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'  // Traducción al español
+            }   
+        });
+    });
+        
+    $(document).ready(function() {
+    $('#btnAgregarServicio').off('click').on('click', function() {
+        const url = "{% url 'formserv' %}";
+        bootbox.dialog({
+        title: 'Formulario',
+        message: "<iframe id='formIframe' src='" + url + "' scrolling='yes' frameborder='0' width='100%' height='600'></iframe>",
+        size: 'large',
+        buttons: {
+            cancel: {
+            label: 'Cerrar',
+            className: 'btn-secondary',
+            callback: function () {
+                cargarContenido("{% url 'lista_servicios' %}");
+            }
+            }
+        }
+        });
+
+        window.addEventListener('message', function(event) {
+        if (event.data && event.data.action === 'closeBootbox') {
+            bootbox.hideAll();
+            cargarContenido("{% url 'lista_servicios' %}");
+        }
+        }, { once: true });
+    });
+    });
+</script>

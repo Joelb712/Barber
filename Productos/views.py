@@ -38,11 +38,13 @@ def crear_producto(request):
 def editar_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
     if request.method == 'POST':
-        form = ProductoForm(request.POST, instance=producto)
+        form = ProductoForm(request.POST, request.FILES , instance=producto)
         if form.is_valid():
             form.save()
             messages.success(request, 'Producto actualizado correctamente.')
-            return redirect('lista_productos')
+            return HttpResponse(
+                "<script>window.parent.postMessage({action: 'closeBootbox'}, '*');</script>"
+            )
     else:
         form = ProductoForm(instance=producto)
     return render(request, 'form.html', {'form': form, 'titulo': 'Editar Producto'})
@@ -52,5 +54,7 @@ def eliminar_producto(request, pk):
     if request.method == 'POST':
         producto.delete()
         messages.success(request, 'Producto eliminado correctamente.')
-        return redirect('lista_productos')
+        return HttpResponse(
+            "<script>window.parent.postMessage({action: 'closeBootbox'}, '*');</script>"
+        )
     return render(request, 'confirmar_eliminacion.html', {'objeto': producto, 'tipo': 'Producto'})

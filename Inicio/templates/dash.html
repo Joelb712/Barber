@@ -35,15 +35,7 @@
             </li>
 
             <li class="menu-item">
-                <button class="menu-link" onclick="toggleSubmenu(this)">
-                    <i class="fas fa-users"></i>
-                    <span class="menu-text">Empleados</span>
-                    <i class="fas fa-chevron-down menu-arrow"></i>
-                </button>
-                <ul class="submenu">
-                    <li><a href="#" class="submenu-link">Ver Empleados</a></li>
-                    <li><a href="#" class="submenu-link">Roles</a></li>
-                </ul>
+                <a href="{% url 'lista_empleados' %}"  data-name="Empleados" data-icono="fa-users" class="menu-link"><i class="fas fa-users"></i>Empleados</a>
             </li>
 
             <li class="menu-item">
@@ -88,7 +80,7 @@
                 </button>
                 <ul class="submenu">
                     <li><a href="{% url 'lista_productos' %}" data-nombre="Productos" data-icono="fa-box" class="submenu-link">Productos</a></li>
-                    <li><a href="{% url 'catalogo_servicios' %}" data-nombre="Servicios" data-icono="fa-scissors" class="submenu-link">Servicios</a></li>
+                    <li><a href="{% url 'lista_servicios' %}" data-nombre="Servicios" data-icono="fa-scissors" class="submenu-link">Servicios</a></li>
                 </ul>
             </li>
             
@@ -150,7 +142,7 @@
             {% endblock %}
         </div>
     </main>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>

@@ -16,10 +16,4 @@ def contacto(request):
 def tienda(request):
     return render(request,'tienda.html')
 
-def formularios(request):
-    return render(request, 'formserv.html')
-
-def catalogo_servicios(request):
-    return render(request, 'servicios.html')
-
 

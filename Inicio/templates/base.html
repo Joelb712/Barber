@@ -56,7 +56,7 @@
   <main class="flex-grow">
     <div class="content-area" id="main-content">
       {% block content %}{% endblock %}
-    </div>>
+    </div>
     
   </main>
 
@@ -65,7 +65,7 @@
 
   <!-- Scripts comunes (opcional) -->
   {% block scripts %}{% endblock %}
-  <script src="{% static 'jQuery-3.7.0/jquery-3.7.0.js' %}"></script> 
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/6.0.4/bootbox.all.min.js"></script>
@@ -99,16 +99,18 @@
       });
       }
 
-      $(document).ready(function() {
-        $('#divContacto').on('click', function(e) {
-            e.preventDefault();
-            cargarContenido("{% url 'contacto' %}");
-        });
-        $('#divStore').on('click', function(e) {
-            e.preventDefault();
-            cargarContenido("{% url 'tienda' %}");
-        });
-    });
+    $(document).ready(function() {
+      $('#divContacto').on('click', function(e) {
+        e.preventDefault();
+        cargarContenido("{% url 'contacto' %}");
+        return false;
+      });
+      $('#divStore').on('click', function(e) {
+        e.preventDefault();
+        cargarContenido("{% url 'tienda' %}");
+        return false;
+      });
+      });
   </script>
 
 </body>
