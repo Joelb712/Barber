@@ -25,11 +25,11 @@ class Empleado(models.Model):
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
     telefono = models.CharField(max_length=20, blank=True, null=True)
-    especialidad = models.CharField(max_length=100, blank=True, null=True)
+    especialidad = models.CharField(max_length=100,choices=[('peluquero','Peluquero'),('recepcionista','Recepcionista')], blank=True, null=True)
     activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.usuario.get_full_name()
+        return f"{self.nombre} {self.apellido}"
 
 
 # --- SERVICIOS ---
@@ -46,7 +46,10 @@ class Servicio(models.Model):
 
 # --- HORARIOS ---
 class Horario(models.Model):
-    dia_semana = models.CharField(max_length=15)  # Ej: Lunes, Martes...
+    dia_semana = models.CharField(
+        max_length=15,
+        choices=[('lunes','Lunes'),('martes','Martes'),('miercoles','Miercoles'),('jueves','Jueves'),('viernes','Viernes'),('sabado','Sabado'),('domingo','Domingo')]
+        )
     hora_inicio = models.TimeField()
     hora_fin = models.TimeField()
     activo = models.BooleanField(default=True)
@@ -92,7 +95,7 @@ class Producto(models.Model):
     activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} {self.precio}"
 
 
 # --- STOCK ---
